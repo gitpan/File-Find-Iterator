@@ -4,7 +4,7 @@ use Test::More;
 BEGIN { plan tests => 2 };
 use File::Find::Iterator;
 
-my $find = File::Find::Iterator->new(dir => ["."]);
+my $find = File::Find::Iterator->create(dir => ["."]);
 
 my @res = ();
 while (my $f =  $find->next) {
