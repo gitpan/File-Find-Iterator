@@ -15,7 +15,7 @@ use vars qw($VERSION @ISA @EXPORT);
 @ISA = qw(Exporter Class::Iterator);
 @EXPORT = qw(imap igrep);
 
-$VERSION = "0.3";
+$VERSION = "0.4";
 
 sub walktree {
     my ($opt, @TODO) = @_;
@@ -93,8 +93,10 @@ sub first {
 sub AUTOLOAD {
     my ($self) = @_;
     my ($pack, $meth) =($AUTOLOAD =~ /^(.*)::(.*)$/);
+    return if $meth eq 'DESTROY';	
     my @auth = qw(dir filter map statefile order);
     my %auth = map { $_ => 1 } @auth;
+
     unless ($auth{$meth}) {
 	croak "Unknow method $meth";
     }
@@ -127,8 +129,8 @@ Find::File::Iterator - Iterator interface for search files
 =head1 SYNOPSIS
 
   use File::Find::Iterator;
-  my $find = File::Find::Iterator->new(dir => ["/home", "/var"],
-                                       filter => \&isdir);
+  my $find = File::Find::Iterator->create(dir => ["/home", "/var"],
+                                          filter => \&isdir);
   sub isdir { -d }
 
   while (my $f = $find->next) { print "file : $f\n" }

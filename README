@@ -3,8 +3,8 @@ NAME
 
 SYNOPSIS
       use File::Find::Iterator;
-      my $find = File::Find::Iterator->new(dir => ["/home", "/var"],
-                                           filter => \&isdir);
+      my $find = File::Find::Iterator->create(dir => ["/home", "/var"],
+                                              filter => \&isdir);
       sub isdir { -d }
 
       while (my $f = $find->next) { print "file : $f\n" }
